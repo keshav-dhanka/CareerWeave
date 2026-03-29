@@ -1,0 +1,22 @@
+# Environments
+venv/
+env/
+.env
+
+# Python internals
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Secret/Sensitive files
+.env
+secret_key.txt
+
+# Database files
+*.log
+*.sql_dump
+
+# Editor settings
+.vscode/
+.idea/
