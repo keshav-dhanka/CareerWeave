@@ -1,22 +1,27 @@
 # Environments
-venv/
-env/
+.venv/
 .env
+.env.local
 
 # Python internals
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 
-# Secret/Sensitive files
-.env
+# Local Experimental testing
+playground/
+
+# Sensitive files & Logs
+gemini-models.txt
+*.log
 secret_key.txt
 
 # Database files
-*.log
+*.sql
+*.sqlite3
 *.sql_dump
 
-# Editor settings
+# Editor / IDE settings
 .vscode/
 .idea/
+.DS_Store
