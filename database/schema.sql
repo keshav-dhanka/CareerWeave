@@ -14,8 +14,9 @@ CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
     email VARCHAR(150) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL, -- To be handled by bcrypt in Python
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    password_hash VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    last_visit_at TIMESTAMP NULL DEFAULT NULL
 ) ENGINE=InnoDB;
 
 -- 3. Roadmaps Table (Parent)
@@ -23,15 +24,19 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS roadmaps (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
+    target_name VARCHAR(100),
+    target_degree VARCHAR(150),
     career_goal VARCHAR(255) NOT NULL,
     current_skill_level VARCHAR(100),
     skill_gap_summary TEXT,
     total_weeks INT DEFAULT 0,
-    is_feasible BOOLEAN DEFAULT TRUE,
+    is_feasible BOOLEAN DEFAULT 1,
     feasibility_reasoning TEXT,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    last_accessed_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN DEFAULT 1,
     CONSTRAINT fk_user FOREIGN KEY (user_id) 
-        REFERENCES users(id) ON DELETE CASCADE
+    REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
 -- 4. Milestones Table (Child)
@@ -45,9 +50,8 @@ CREATE TABLE IF NOT EXISTS milestones (
     task TEXT,
     difficulty VARCHAR(50), -- Beginner, Intermediate, Advanced
     estimated_hours INT,
-    resource_type VARCHAR(100), -- Video, Article, Documentation, Lab
-    suggested_resource TEXT,
-    is_completed BOOLEAN DEFAULT FALSE,
+    resources JSON,
+    is_completed BOOLEAN DEFAULT 0,
     CONSTRAINT fk_roadmap FOREIGN KEY (roadmap_id) 
-        REFERENCES roadmaps(id) ON DELETE CASCADE
+    REFERENCES roadmaps(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;

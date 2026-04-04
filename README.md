@@ -1,121 +1,126 @@
 <div align="center">
 
-![Python Version](https://img.shields.io/badge/python-3.14+-blue.svg)
-![AI Engine](https://img.shields.io/badge/AI-Gemini%203%20Flash-red.svg)
-![Backend](https://img.shields.io/badge/Framework-FastAPI-009688.svg)
-![Database](https://img.shields.io/badge/Database-MySQL%208.0-4479A1.svg)
+![Python Version](https://img.shields.io/badge/python-3.14+-blue.svg?style=for-the-badge&logo=python)
+![AI Engine](https://img.shields.io/badge/AI-Gemini%203%20Flash-red.svg?style=for-the-badge&logo=google)
+![Backend](https://img.shields.io/badge/Framework-FastAPI-009688.svg?style=for-the-badge&logo=fastapi)
+![Database](https://img.shields.io/badge/Database-MySQL%208.0-4479A1.svg?style=for-the-badge&logo=mysql)
 
-</div>
-
-</div>
-
-<div align="center">
-  <h1>Career Weave</h1>
-  <h3>The AI-Driven Career Architect.</h3>
-  <p>Weaving personalized, persistent learning paths from your current skills to your dream role.</p>
-</div>
+<h1>CareerWeave</h1>
+<h3>The AI-Driven Career Architect.</h3>
+<p><i>Weaving personalized, persistent learning paths from your current skills to your dream role.</i></p>
 
 <p align="center">
-    <a href="#features"> Features </a> •
-    <a href="#tech-stack"> Tech Stack </a> •
-    <a href="#project-structure"> Project Structure </a> •
-    <a href="#installation"> Installation </a> •
-	<a href="#quick-start"> Quick Start </a> •
-    <a href="https://github.com/keshav-dhanka/CareerWeave/issues"> Report Bug </a>
+    <a href="#-features">Features</a> •
+    <a href="#-tech-stack">Tech Stack</a> •
+    <a href="#-project-structure">Project Structure</a> •
+    <a href="#-installation">Installation</a> •
+	<a href="#-quick-start">Quick Start</a>
 </p>
 
-
-
-## Features
-
-- **AI-Generated Delta Analysis**: Calculates the technical "gap" between your current profile and target role using Gemini 3 Flash.
-- **Dynamic Feasibility Gate**: Detects unrealistic career jumps and provides honest, architect-level reasoning.
-- **Relational Persistence**: All roadmaps and weekly milestones are stored in **MySQL** with full referential integrity.
-- **Secure Authentication**: User signup and login systems utilizing **Bcrypt** password hashing.
-- **Auto-Generated Documentation**: Fully interactive API explorer via **Swagger UI**.
+</div>
 
 
 
-## Tech Stack
+## ✨ Features
 
-- **Language**: Python 3.14+
-- **API Framework**: FastAPI (Asynchronous logic)
-- **AI Integration**: Google Generative AI (Gemini 2.5 Flash Lite)
-- **Database**: MySQL 8.0 (Relational Mapping)
-- **Data Validation**: Pydantic v2
-- **Security**: Passlib (Bcrypt hashing)
+- **Two-Pass AI Orchestration**: Utilizes a "Recruiter Pass" to extract context from natural language and an "Architect Pass" to generate the final roadmap.
+- **Conversational Context Extraction**: Translates messy, free-form user prompts into structured technical briefings.
+- **Sequential Milestone Unlocking**: Implements a "Progress Lock" system where Week N details are hidden until Week N-1 is marked as completed.
+- **Dynamic Feasibility Gate**: Detects unrealistic career jumps (e.g., Retail to AI Engineer in 12 weeks) and provides honest, architect-level reasoning.
+- **Relational Persistence**: All roadmaps, user profiles, and weekly tasks are securely stored in **MySQL** with full referential integrity.
+- **JWT Authentication**: Secure user sessions using industry-standard **JSON Web Tokens** and Bcrypt hashing.
 
 
 
-## Project Structure
+## 🛠️ Tech Stack
+
+| Category | Technology |
+| :--- | :--- |
+| **Language** | Python 3.14+ |
+| **Framework** | FastAPI (Asynchronous logic & Modular Routing) |
+| **AI Integration** | Google Generative AI (Gemini 3 Flash) |
+| **Database** | MySQL 8.0 (Relational Mapping) |
+| **Security** | Bcrypt (Hashing) & PyJWT (Session Tokens) |
+| **Validation** | Pydantic v2 (Strict Data Schemas) |
+
+
+
+## 📂 Project Structure
 
 ```text
 CareerWeave/
 ├── backend/            		
-│   ├── main.py         		# FastAPI Entry point & Routes
-│   ├── generator.py    		# Gemini AI Prompt Engine
-│   ├── database_manager.py 	# MySQL CRUD & Auth Operations
-│   ├── schemas.py      		# Pydantic Data Models (DTOs)
+│   ├── main.py         		    # FastAPI Entry point & Routes
+│   ├── generator.py    		    # Gemini AI Interfacing & Generation
+│   ├── prompts.py                  # System Prompts & AI Architecture Rules
+│   ├── database_manager.py 	    # MySQL CRUD & Auth Operations
+│   ├── schemas.py      		    # Pydantic Data Models (DTOs)
+│   └── security.py                 # JWT & Password Security Handling
 │
 ├── database/           		
-│   └── schema.sql      		# Database blueprint & Table setup
+│   └── schema.sql      		    # Database blueprint & Table setup
 │
-├── tests/              		
-│   └── test_pipeline.py 		# E2E verification script
+├── tests/              		    
+│   ├── test_api.py      		    # API and integration testing
+│   ├── test_database_manager.py    # Database unit testing
+│   └── test_generator.py           # Mocked AI logic testing
 │
-├── .env.example           		# Template for API keys & DB credentials
-├── requirements.txt			# Project dependencies
+├── requirements.txt			    # Project dependencies
+├── .env.example           		    # Template for API keys & DB credentials
 └── README.md
 ```
 
 
 
-## Installation
+## ⚙️ Installation
 
-1. Clone & Navigate
-	```bash
-	git clone https://github.com/keshav-dhanka/CareerWeave.git
-	cd CareerWeave
-	```
- 
-2. Environment Setup
-	```bash
-	# Create virtual environment
-	python -m venv .venv
-	source .venv/Scripts/activate	# Linux/Mac/Git Bash
-	# OR
-	.\.venv\Scripts\activate		# Windows PowerShell
-	```
- 
-3. Install Dependencies
-	```bash
-	pip install -r requirements.txt
-	```
-
-4. Database Setup
-   1. Open MySQL Workbench
-   2. Run the script found in ```database/schema.sql``` to initialize the tables
-
-5. Environment Variables
-
-   Create a ```.env``` file in the root directory
-    ```
-    GEMINI_API_KEY=your_google_ai_studio_key
-    DB_HOST=localhost
-    DB_USER=root
-    DB_PASSWORD=your_mysql_password
-    DB_NAME=career_weave_db
-    ```
-
-
-
-## Quick Start
-Launch the backend server:
+**1. Clone & Navigate**
 ```bash
-cd backend
-uvicorn main:app --reload
+git clone https://github.com/keshav-dhanka/CareerWeave.git
+cd CareerWeave
 ```
-Once running, explore the interactive API documentation at: http://127.0.0.1:8000/docs
+
+**2. Environment Setup**
+```bash
+# Create virtual environment
+python -m venv .venv
+
+# Activate (Linux/Mac/Git Bash)
+source .venv/Scripts/activate	
+
+# Activate (Windows PowerShell)
+.\.venv\Scripts\activate		
+```
+
+**3. Install Dependencies**
+```bash
+pip install -r requirements.txt
+```
+
+**4. Database Setup**
+- Initialize tables using `database/schema.sql` in MySQL Workbench.
+
+**5. Environment Variables**
+Create a `.env` file in the project directory:
+```env
+GEMINI_API_KEY=your_google_ai_studio_key
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_mysql_password
+DB_NAME=career_weave_db
+```
+
+
+
+## ⚡ Quick Start
+
+Launch the backend server:
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+Once running, explore the interactive **Swagger UI API documentation** at: **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
 
 
 
