@@ -36,8 +36,9 @@
 
 | Category | Technology |
 | :--- | :--- |
-| **Language** | Python 3.14+ |
-| **Framework** | FastAPI (Asynchronous logic & Modular Routing) |
+| **Backend Framework** | FastAPI (Modular Routing) & Python 3.14+ |
+| **Frontend Framework** | React 19, Vite, React Router |
+| **UI & Animations** | TailwindCSS, GSAP, Framer Motion, Three.js |
 | **AI Integration** | Google Generative AI (Gemini 3 Flash) |
 | **Database** | MySQL 8.0 (Relational Mapping) |
 | **Security** | Bcrypt (Hashing) & PyJWT (Session Tokens) |
@@ -45,30 +46,37 @@
 
 
 
-## 📂 Project Structure
+## 🏛️ High-Level Architecture
+
+CareerWeave follows a decoupled client-server architecture, cleanly separating the user interface from business logic, AI orchestration, and data persistence.
 
 ```text
-CareerWeave/
-├── backend/            		
-│   ├── main.py         		    # FastAPI Entry point & Routes
-│   ├── generator.py    		    # Gemini AI Interfacing & Generation
-│   ├── prompts.py                  # System Prompts & AI Architecture Rules
-│   ├── database_manager.py 	    # MySQL CRUD & Auth Operations
-│   ├── schemas.py      		    # Pydantic Data Models (DTOs)
-│   └── security.py                 # JWT & Password Security Handling
-│
-├── database/           		
-│   └── schema.sql      		    # Database blueprint & Table setup
-│
-├── tests/              		    
-│   ├── test_api.py      		    # API and integration testing
-│   ├── test_database_manager.py    # Database unit testing
-│   └── test_generator.py           # Mocked AI logic testing
-│
-├── requirements.txt			    # Project dependencies
-├── .env.example           		    # Template for API keys & DB credentials
-└── README.md
+    [ Frontend: React + Vite ]
+               │
+               │ REST API (JSON / JWT Auth)
+               ▼
+      [ Backend: FastAPI ]
+        │             │
+        │             ▼
+        │     [ AI Orchestration ]
+        │      • Recruiter Pass
+        │      • Architect Pass
+        │             │
+        │             ▼
+        │     [ Google Gemini 3 Flash ]
+        │
+        ▼
+   [ MySQL Database ]
+    • User Profiles
+    • Persisted Roadmaps
+    • Progress Tracking
 ```
+
+**Data Flow Overview:**
+1. **Client Interaction**: The React SPA captures user inputs, manages local UI state (modals, animations), and handles protected routing.
+2. **API Layer**: FastAPI receives requests, enforcing security (JWT via PyJWT) and strict data validation (Pydantic v2).
+3. **AI Generation Engine**: The backend sends validated context to the Gemini model to dynamically build the JSON-structured learning curriculum.
+4. **Data Persistence**: The generated roadmap and user states are securely written to the MySQL relational database using parameterized queries.
 
 
 
@@ -92,15 +100,22 @@ source .venv/Scripts/activate
 .\.venv\Scripts\activate		
 ```
 
-**3. Install Dependencies**
+**3. Install Backend Dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-**4. Database Setup**
+**4. Install Frontend Dependencies**
+```bash
+cd frontend
+npm install
+cd ..
+```
+
+**5. Database Setup**
 - Initialize tables using `database/schema.sql` in MySQL Workbench.
 
-**5. Environment Variables**
+**6. Environment Variables**
 Create a `.env` file in the project directory:
 ```env
 GEMINI_API_KEY=your_google_ai_studio_key
@@ -110,17 +125,40 @@ DB_PASSWORD=your_mysql_password
 DB_NAME=career_weave_db
 ```
 
+**7. Seed Example Data (Optional but Recommended)**
+Populate your database with pre-generated example roadmaps to test the UI:
+```bash
+python database/seed_examples.py
+```
+*(Note: This automatically creates a dummy user with email `examples@careerweave.com` and password `DummyPassword123!`)*
+
 
 
 ## ⚡ Quick Start
 
-Launch the backend server:
+You will need two separate terminal windows to run both the backend and frontend.
 
+**Terminal 1: Launch the Backend**
 ```bash
+# Ensure your virtual environment is active
 uvicorn backend.main:app --reload
 ```
+*Explore the interactive **Swagger UI API documentation** at: **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)***
 
-Once running, explore the interactive **Swagger UI API documentation** at: **[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)**
+**Terminal 2: Launch the Frontend**
+```bash
+cd frontend
+npm run dev
+```
+*The React application will launch, typically accessible at **[http://localhost:5173](http://localhost:5173)***
+
+
+
+## 🛠️ Known Technical Debt & Future Optimizations
+
+- **Asynchronous DB Migration**: Currently tracking a transition from synchronous database connections to a fully async pooling architecture (`aiomysql` / SQLAlchemy Async) to optimize FastAPI concurrency.
+- **State Management**: Planning a migration of local UI triggers (Toasts/Modals) into native React 19 Context to eliminate current prop-drilling patterns.
+- **Data Fetching**: Refactoring raw `useEffect` fetches into a robust data-fetching library (like React Query or SWR) for better caching and loading states.
 
 
 

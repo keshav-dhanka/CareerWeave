@@ -1,0 +1,419 @@
+/* ── Overlay ── */
+.pf-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ── Container (Flyout Panel) ── */
+.pf-container {
+  position: absolute;
+  left: 5rem;
+  /* By default, next to the collapsed sidebar */
+  bottom: 2rem;
+  width: 24rem;
+  max-width: 90vw;
+  background-color: var(--bg-color, #0d0d0f);
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(79, 70, 229, 0.3) 0%, transparent 40%),
+    radial-gradient(circle at 80% 40%, rgba(255, 107, 74, 0.2) 0%, transparent 40%);
+  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.1));
+  border-radius: 1.25rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-20px) scale(0.95);
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Adjust position if sidebar is expanded - assuming ~15rem width */
+@media (min-width: 64rem) {
+
+  /* We can't strictly know if sidebar is expanded purely in CSS here without global classes, 
+     but keeping it centered vertically or just floating from the bottom left is great. */
+  .pf-container {
+    left: 17rem;
+    /* Default for expanded sidebar on desktop */
+  }
+}
+
+.pf-container.open {
+  transform: translateX(0) scale(1);
+  opacity: 1;
+}
+
+/* ── Header ── */
+.pf-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.pf-header-title h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.pf-header-title p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.pf-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pf-close:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+/* ── Body & Tabs ── */
+.pf-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.pf-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 0.5rem;
+}
+
+.pf-tab {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pf-tab:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.pf-tab.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.pf-tab--danger.active {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+/* ── Forms ── */
+.pf-content {
+  min-height: 14rem;
+  /* keep height stable during tab switch */
+}
+
+.pf-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.pf-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.pf-form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.pf-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.pf-input-icon {
+  position: absolute;
+  left: 1rem;
+  color: var(--text-muted);
+  z-index: 1;
+}
+
+.pf-input-wrapper input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 0.75rem 1rem 0.75rem 2.75rem;
+  border-radius: 0.75rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.pf-input-wrapper input:focus {
+  border-color: var(--accent-color, #fb923c);
+}
+
+.pf-input-wrapper input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Buttons ── */
+.pf-btn {
+  width: 100%;
+  padding: 0.75em 1.5em;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.2s;
+}
+
+.pf-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.pf-btn--primary {
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  color: #fff;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.pf-btn--primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+/* ── Danger Tab Refined ── */
+.pf-danger-zone {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.pf-danger-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 0.75rem;
+  padding: 1rem;
+}
+
+.pf-danger-icon {
+  color: #ef4444;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.pf-danger-warning p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #fca5a5;
+  line-height: 1.5;
+}
+
+.pf-impact-counter {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.pf-impact-counter > span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.pf-impact-stats {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.pf-stat-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.pf-stat-num {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.pf-stat-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.pf-glass-input input {
+  background: rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.pf-glass-input input:focus {
+  border-color: #ef4444 !important;
+}
+
+.pf-action-split {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pf-btn--safe-cancel {
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 624rem;
+  color: #f8fafc;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  width: 100%;
+  padding: 0.75em 1.5em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pf-btn--safe-cancel:hover {
+  background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.1) 100%);
+  transform: translateY(-2px);
+}
+
+.pf-btn--hard-danger {
+  background: transparent;
+  color: rgba(239, 68, 68, 0.5);
+  border: none;
+  font-size: 0.85rem;
+  box-shadow: none;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.75em 1.5em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.pf-btn--hard-danger:not(:disabled) {
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.95rem;
+  box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+}
+
+.pf-btn--hard-danger:hover:not(:disabled) {
+  background: #ef4444;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+/* ── Footer ── */
+.pf-footer {
+  padding: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 1.25rem 1.25rem;
+}
+
+/* ── Mobile adjustments ── */
+@media (max-width: 63.9rem) {
+  .pf-container {
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%, 50%) scale(0.95);
+    width: 90vw;
+  }
+
+  .pf-container.open {
+    transform: translate(-50%, 50%) scale(1);
+  }
+}

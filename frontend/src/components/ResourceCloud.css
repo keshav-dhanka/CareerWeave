@@ -1,0 +1,264 @@
+.resource-section {
+  padding: 3em 2em;
+  position: relative;
+  overflow: hidden;
+}
+
+.resources-header {
+  text-align: center;
+  position: relative;
+}
+
+.resources-header .section-heading {
+  font-size: 2.375rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.5em;
+}
+
+.highlight-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.handdrawn-line {
+  position: absolute;
+  bottom: -0.625rem;
+  left: 0;
+  width: 100%;
+  height: 1.25rem;
+}
+
+.resources-header .section-subheading {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5em;
+}
+
+.gradient-highlight {
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.nebula-container {
+  position: relative;
+  width: 100%;
+  height: 31.25rem;
+  perspective: 1000px;
+}
+
+.nebula-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 62.5rem;
+  height: 62.5rem;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(67, 56, 202, 0.15) 0%, rgba(126, 34, 206, 0.08) 30%, rgba(0, 0, 0, 0) 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nebula-connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nebula-line {
+  stroke: rgba(255, 107, 74, 0.2);
+  stroke-width: 0.4;
+  stroke-dasharray: 2 4;
+  opacity: 0.3;
+  filter: drop-shadow(0 0 1px rgba(255, 107, 74, 0.2));
+  animation: connectionPulse 8s linear infinite;
+}
+
+@keyframes connectionPulse {
+  0% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    stroke-dashoffset: 100;
+    opacity: 0.3;
+  }
+}
+
+.nebula-core {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.1);
+  z-index: 10;
+}
+
+.nebula-node-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.nebula-node {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  position: relative;
+  opacity: 0.5;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nebula-node:hover {
+  opacity: 1;
+  background: rgba(255, 165, 0, 0.15);
+  border-color: rgba(255, 165, 0, 0.5);
+  box-shadow: 0 0 25px rgba(255, 165, 0, 0.35);
+  transform: scale(1.05);
+}
+
+.nebula-tooltip {
+  position: absolute;
+  bottom: -2.1875rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(-0.625rem);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  background: rgba(0, 0, 0, 0.85);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.375em 0.75em;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 20;
+}
+
+.nebula-node:hover .nebula-tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.disclaimer-text {
+  font-size: 0.625rem;
+  opacity: 0.3;
+  text-align: center;
+  color: var(--text-primary);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 63.9rem) {
+  .resource-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  .resources-header .section-heading {
+    font-size: 2rem;
+  }
+
+  .resources-header .section-subheading {
+    white-space: normal;
+  }
+
+  /* Restructure cloud to flex grid to prevent overlap */
+  .nebula-connections {
+    display: none;
+  }
+
+  .nebula-container {
+    height: auto;
+    padding: 2rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    perspective: none;
+    transform: none;
+  }
+
+  .nebula-node-wrapper {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+  }
+
+  .nebula-container > div:nth-of-type(2) {
+    order: 6; /* Place core logo in the middle of the pack */
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+  }
+
+  .nebula-node {
+    opacity: 1; /* Make all nodes visible since no hover on touch */
+  }
+
+  .nebula-tooltip {
+    display: none; /* Tooltips rely on hover, hide on touch screens */
+  }
+}
+
+@media (max-width: 47.9rem) {
+  .resource-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  .resources-header .section-heading {
+    font-size: 2rem;
+  }
+
+  .resources-header .section-subheading {
+    white-space: normal;
+  }
+
+  .nebula-container {
+    height: auto;
+    padding: 1rem 0;
+    gap: 1rem;
+    transform: none;
+  }
+
+  .nebula-container > div:nth-of-type(2) {
+    margin: 0.5rem;
+  }
+}

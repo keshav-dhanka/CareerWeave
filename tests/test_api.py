@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import patch
+# pyrefly: ignore [missing-import]
 from fastapi.testclient import TestClient
 from backend.main import app
 from backend.security import get_current_user
@@ -69,6 +70,7 @@ class TestAPI(unittest.TestCase):
             target_degree="Self Taught",
             career_goal="Frontend Dev",
             is_feasible=True,
+            domain="Tech",
             feasibility_reasoning="Very doable.",
             current_skill_level="Beginner",
             skill_gap_summary="Needs CSS.",
@@ -91,6 +93,89 @@ class TestAPI(unittest.TestCase):
         # Most importantly, verify the endpoint successfully intercepted "Explorer" and gave the AI the true DB name!
         called_context = mock_gen.call_args[0][0]
         self.assertEqual(called_context.target_name, "Test User")
+
+    @patch('backend.database_manager.get_example_roadmaps')
+    def test_get_examples(self, mock_get_examples):
+        # 1. Setup mocked example roadmaps return value
+        mock_get_examples.return_value = [
+            {
+                "id": 1,
+                "user_id": 10,
+                "target_name": "Example Tech Road",
+                "target_degree": "Self-Taught",
+                "career_goal": "Software Engineer",
+                "current_skill_level": "Beginner",
+                "skill_gap_summary": "HTML/CSS/JS",
+                "total_weeks": 12,
+                "is_feasible": True,
+                "is_example": True,
+                "domain": "Tech",
+                "feasibility_reasoning": "Standard path",
+                "milestones": [
+                    {
+                        "milestone_id": 101,
+                        "week_number": 1,
+                        "topic": "Learn HTML",
+                        "key_objective": "Understand the structure of web pages",
+                        "task": "Build a static portfolio homepage using semantic HTML tags",
+                        "difficulty": "Beginner",
+                        "estimated_hours": 10,
+                        "is_completed": False,
+                        "is_locked": False,
+                        "resources": [
+                            {
+                                "type": "Documentation",
+                                "title": "MDN Web Docs - HTML",
+                                "url_or_query": "https://developer.mozilla.org/en-US/docs/Web/HTML"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "user_id": 11,
+                "target_name": "Example Creative Road",
+                "target_degree": "BFA",
+                "career_goal": "UI/UX Designer",
+                "current_skill_level": "Intermediate",
+                "skill_gap_summary": "Figma",
+                "total_weeks": 8,
+                "is_feasible": True,
+                "is_example": True,
+                "domain": "Creative",
+                "feasibility_reasoning": "Highly creative path",
+                "milestones": []
+            }
+        ]
+
+        # 2. Call endpoint without JWT credentials (explicitly public bypass check)
+        response = self.client.get("/examples")
+        
+        # 3. Assertions
+        self.assertEqual(response.status_code, 200)
+        data = response.json()
+        
+        # Verify array response correctly
+        self.assertIsInstance(data, list)
+        self.assertEqual(len(data), 2)
+        
+        # Verify the structure complies with response schema (CareerRoadmap mapping)
+        tech_road = data[0]
+        self.assertEqual(tech_road["target_name"], "Example Tech Road")
+        self.assertEqual(tech_road["domain"], "Tech")
+        self.assertTrue(tech_road["is_example"])
+        self.assertEqual(len(tech_road["curriculum"]), 1)
+        self.assertEqual(tech_road["curriculum"][0]["topic"], "Learn HTML")
+        self.assertEqual(tech_road["curriculum"][0]["resources"][0]["title"], "MDN Web Docs - HTML")
+        
+        creative_road = data[1]
+        self.assertEqual(creative_road["target_name"], "Example Creative Road")
+        self.assertEqual(creative_road["domain"], "Creative")
+        self.assertTrue(creative_road["is_example"])
+        self.assertEqual(len(creative_road["curriculum"]), 0)
+        
+        mock_get_examples.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()

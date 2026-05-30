@@ -1,0 +1,682 @@
+/* ═══════════════════════════════════════════════════════════════
+   Sidebar — CareerWeave Dashboard
+   All fluid units: rem / % / clamp(). px only for borders & shadows.
+   ═══════════════════════════════════════════════════════════════ */
+
+.sidebar {
+  /* Size */
+  width: 17rem;
+  min-height: 100dvh;
+  max-height: 100dvh;
+  flex-shrink: 0;
+
+  /* Glass panel */
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-right: 1px solid var(--glass-border);
+
+  /* Layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0 1.25rem;
+  /* Removed horizontal padding */
+  gap: 0.5rem;
+
+  /* Smooth collapse */
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+  z-index: 100;
+}
+
+.sidebar--collapsed {
+  width: 4rem;
+}
+
+/* ── TOP ─────────────────────────────────────────────────────── */
+
+.sidebar__top {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0 0.75rem;
+  /* Added padding back for top buttons */
+  flex-shrink: 0;
+  /* Keep top fixed */
+}
+
+/* Toggle button */
+.sidebar__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.sidebar__toggle:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-primary);
+}
+
+/* Generic sidebar button */
+.sidebar__btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  transition: background 0.2s ease, box-shadow 0.25s ease, transform 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+}
+
+.sidebar__btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.sidebar__btn-label {
+  opacity: 1;
+  transition: opacity 0.2s 0.05s;
+}
+
+.sidebar--collapsed .sidebar__btn {
+  padding: 0;
+  justify-content: center;
+  height: 2.75rem;
+}
+
+.sidebar--collapsed .sidebar__btn-label {
+  display: none;
+}
+
+/* Primary — New Roadmap with glow */
+.sidebar__btn--primary {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.25) 0%, rgba(59, 130, 246, 0.15) 100%);
+  border: 1px solid rgba(79, 70, 229, 0.35);
+  box-shadow: 0 0 16px var(--accent-glow);
+  color: var(--text-primary);
+}
+
+.sidebar__btn--primary:hover {
+  background: linear-gradient(135deg, rgba(79, 70, 229, 0.4) 0%, rgba(59, 130, 246, 0.25) 100%);
+  box-shadow: 0 0 28px var(--accent-glow);
+  transform: translateY(-0.0625rem);
+}
+
+/* Ghost buttons */
+.sidebar__btn--ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+}
+
+.sidebar__btn--ghost:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--glass-border);
+  color: var(--text-primary);
+}
+
+/* ── RECENT WEAVES (expanded only) ──────────────────────────── */
+
+.sidebar__recent {
+  margin-top: 0.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* Fill all available space between top and bottom */
+  min-height: 0;
+  /* Important for flex-scroll to work */
+}
+
+.sidebar__section-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 0 0.75rem;
+  /* Internal horizontal padding */
+  margin-bottom: 0.5rem;
+}
+
+.sidebar__recent-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  overflow-y: auto;
+  padding: 0 0 0 0.75rem;
+  /* Zero right padding for scrollbar at edge */
+  flex: 1;
+}
+
+/* Custom scrollbar at the very right edge */
+.sidebar__recent-list::-webkit-scrollbar {
+  width: 0.3125rem;
+}
+
+.sidebar__recent-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar__recent-list::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 0.625rem;
+}
+
+.sidebar__recent-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.sidebar__recent-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  /* Re-applied left padding for alignment */
+  border-radius: 0.625rem;
+  /* Adjusted border radius for items hitting left edge */
+  background: transparent;
+  text-align: left;
+  transition: background 0.18s;
+  cursor: pointer;
+  border: 1px solid transparent;
+  width: calc(100% - 0.75rem);
+}
+
+.sidebar__recent-item:hover {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: var(--glass-border);
+}
+
+.sidebar__recent-title {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__recent-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  overflow: hidden;
+  flex: 1;
+}
+
+.sidebar__recent-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  opacity: 0;
+  transition: opacity 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.sidebar__recent-item:hover .sidebar__recent-actions {
+  opacity: 1;
+}
+
+.sidebar__recent-actions:hover {
+  color: var(--text-primary);
+}
+
+.sidebar__inline-rename-input {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--accent-color);
+  color: var(--text-primary);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  padding: 0.15rem 0.25rem;
+  border-radius: 0.25rem;
+  width: 100%;
+  max-width: 9rem;
+  outline: none;
+}
+
+.sidebar__inline-action-btn {
+  background: transparent;
+  border: none;
+  color: var(--accent-color);
+  cursor: pointer;
+  padding: 0.15rem;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.sidebar__inline-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar__inline-action-btn--cancel {
+  color: #ef4444;
+}
+
+/* Ensure actions are visible on mobile/touch devices */
+@media (hover: none) {
+  .sidebar__recent-actions {
+    opacity: 1;
+  }
+}
+
+/* ── Popover Menu ────────────────────────────────────────────────── */
+
+.sidebar__popover {
+  position: absolute;
+  top: 2rem;
+  right: 0.75rem;
+  background: rgba(15, 15, 20, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.75rem;
+  padding: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 50;
+  min-width: 120px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: popoverFadeIn 0.15s ease-out;
+}
+
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.sidebar__popover-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+}
+
+.sidebar__popover-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.sidebar__popover-btn.delete-btn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.sidebar__pin-icon {
+  color: var(--accent-orange);
+}
+
+.sidebar__recent-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.sidebar__no-data {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding: 0.5rem 0.75rem;
+  font-style: italic;
+}
+
+/* ── SKELETON LOADER ─────────────────────────────────────────── */
+
+.sidebar__skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0 0.25rem;
+}
+
+.sidebar__skeleton-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar__skeleton-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.05),
+      transparent);
+  animation: shimmer 1.5s infinite;
+}
+
+.sidebar__skeleton-title {
+  height: 0.75rem;
+  width: 70%;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.25rem;
+}
+
+.sidebar__skeleton-meta {
+  height: 0.6rem;
+  width: 40%;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.25rem;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ── BOTTOM / PROFILE ─────────────────────────────────────────── */
+
+.sidebar__bottom {
+  position: relative;
+  padding: 0 0.75rem;
+  /* Added padding back for profile section */
+  flex-shrink: 0;
+}
+
+.sidebar__profile-wrapper {
+  position: relative;
+}
+
+.sidebar__profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  transition: background 0.2s;
+  overflow: hidden;
+  text-align: left;
+}
+
+.sidebar--collapsed .sidebar__profile-btn {
+  padding: 0;
+  justify-content: center;
+  height: 3rem;
+  background: transparent;
+  border-color: transparent;
+}
+
+.sidebar__profile-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar--collapsed .sidebar__profile-btn:hover {
+  background: transparent;
+}
+
+.sidebar__avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-color), var(--accent-orange));
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.sidebar__profile-info {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar__profile-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar__profile-role {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* ── Profile popup menu ─────────────────────────────────────── */
+
+.sidebar__profile-menu {
+  position: absolute;
+  bottom: calc(100% + 0.5rem);
+  left: 0;
+  right: 0;
+  background: rgba(18, 18, 22, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 0.75rem;
+  padding: 0.375rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 200;
+}
+
+.sidebar__menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-secondary);
+  transition: background 0.18s, color 0.18s;
+}
+
+.sidebar__menu-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+}
+
+.sidebar__menu-item--danger:hover {
+  background: rgba(255, 80, 60, 0.1);
+  color: #ff5a5a;
+}
+
+/* ── Modals ─────────────────────────────────────────────────── */
+
+.sidebar__modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar__modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--glass-border);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  animation: modalScaleIn 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalScaleIn {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.sidebar__modal-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.sidebar__modal-desc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.sidebar__modal-input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.9375rem;
+  margin-bottom: 1.25rem;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.sidebar__modal-input:focus {
+  border-color: var(--accent-color);
+}
+
+.sidebar__modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.sidebar__modal-btn {
+  padding: 0.5em 1em;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.sidebar__modal-btn--cancel {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.sidebar__modal-btn--cancel:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary);
+}
+
+.sidebar__modal-btn--confirm {
+  background: var(--accent-color);
+  color: white;
+}
+
+.sidebar__modal-btn--confirm:hover {
+  filter: brightness(1.1);
+}
+
+.sidebar__modal-btn--danger {
+  background: #ef4444;
+  color: white;
+}
+
+.sidebar__modal-btn--danger:hover {
+  background: #dc2626;
+}
+
+/* ── Responsive: mobile overlay sidebar ──────────────────────── */
+
+@media (max-width: 47.9rem) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100dvh;
+    z-index: 300;
+    width: 15rem;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .sidebar.sidebar--mobile-open {
+    transform: translateX(0);
+  }
+
+  .sidebar--collapsed {
+    width: 15rem;
+    /* on mobile, collapsed = hidden (transform does the work) */
+    transform: translateX(-100%);
+  }
+}

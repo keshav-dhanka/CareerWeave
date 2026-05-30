@@ -1,0 +1,247 @@
+.problem-section {
+  background: var(--bg-color);
+  padding: 3em 2em;
+  position: relative;
+  overflow: hidden;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+/* Dynamic background gradient */
+.problem-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y),
+      rgba(255, 107, 74, 0.12) 0%,
+      transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Mental Noise / Echoes of Doubt */
+.mental-noise-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+.floating-phrase {
+  position: absolute;
+  white-space: nowrap;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.phrase-outlined {
+  color: transparent;
+  -webkit-text-stroke: 0.0625rem rgba(255, 255, 255, 0.25);
+}
+
+.phrase-solid {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+.problem-header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+}
+
+.section-heading {
+  font-size: 2.375rem;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text-primary);
+  margin-bottom: 0.5em;
+}
+
+.highlight-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.handdrawn-line {
+  position: absolute;
+  bottom: -0.625rem;
+  left: 0;
+  width: 100%;
+  height: 1.25rem;
+}
+
+.gradient-highlight {
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-color) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+.section-subheading {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.5em;
+}
+
+/* Card System Container */
+.problem-cards-container {
+  position: relative;
+  height: 31.875rem;
+  width: 100%;
+  margin: 0 auto;
+  overflow: visible;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glassmorphism Card Base */
+.problem-card {
+  position: absolute;
+  width: 18.125rem;
+  padding: 0.75em;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform, scale, z-index;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .problem-card:hover {
+    background: rgba(24, 24, 27, 0.92);
+    border-color: rgba(79, 70, 229, 0.45);
+    box-shadow:
+      0 0.5rem 2rem rgba(79, 70, 229, 0.18),
+      0 0 0 0.0625rem rgba(79, 70, 229, 0.15),
+      inset 0 0.0625rem 0 rgba(255, 255, 255, 0.05);
+  }
+}
+
+/* Inner Visual Container */
+.card-visual {
+  height: 8.75rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 0.75rem;
+}
+
+.card-title {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  padding: 0.25em;
+}
+
+.card-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  padding: 0.25em 0.125em 0.25em 0.25em;
+}
+
+/* SVG Elements Styling */
+.visual-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 15px rgba(255, 107, 74, 0));
+  transition: filter 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .problem-card:hover .visual-svg {
+    filter: drop-shadow(0 0 25px rgba(79, 70, 229, 0.6));
+  }
+}
+
+/* Specific Card Positioning - Fanned Stack */
+.card-1 {
+  transform: rotate(-8deg) translate(-6.25rem, -1.875rem);
+  z-index: 1;
+}
+
+.card-2 {
+  transform: rotate(6deg) translate(5rem, -3.125rem);
+  z-index: 2;
+}
+
+.card-3 {
+  transform: rotate(-12deg) translate(-3.75rem, 3.75rem);
+  z-index: 3;
+}
+
+.card-4 {
+  transform: rotate(4deg) translate(6.875rem, 3.125rem);
+  z-index: 4;
+}
+
+/* Tablet fallback */
+@media (max-width: 63.9rem) {
+  .problem-cards-container {
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5em;
+  }
+
+  .problem-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  .section-heading {
+    font-size: 2rem;
+  }
+
+  .problem-card {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    transform: none !important;
+    /* Disables JS animations to respect grid layout */
+  }
+}
+
+/* Mobile fallback */
+@media (max-width: 47.9rem) {
+  .problem-cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  .section-heading {
+    font-size: 2rem;
+  }
+}

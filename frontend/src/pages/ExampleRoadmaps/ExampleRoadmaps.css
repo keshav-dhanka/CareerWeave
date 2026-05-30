@@ -1,0 +1,232 @@
+.examples-page {
+  min-height: 100vh;
+  padding-bottom: 4rem;
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.examples-bg-gradient {
+  background: radial-gradient(circle at 50% 50%, rgba(255, 107, 74, 0.15) 0%, rgba(5, 5, 5, 0) 60%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.examples-hero {
+  position: relative;
+  text-align: center;
+  padding: 8rem 2rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.examples-title {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 1rem auto;
+  color: var(--text-primary);
+}
+
+.examples-subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.examples-search-glass {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 37.5rem;
+  padding: 1rem 1.5rem;
+  box-sizing: border-box;
+
+  /* Navbar floating glass properties updated to system style */
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 1.25rem;
+  box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.5);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.examples-search-glass:focus-within {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 10px 40px rgba(79, 70, 229, 0.2);
+}
+
+.search-icon {
+  color: var(--text-muted);
+}
+
+.examples-search-glass input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  font-family: var(--font-family);
+}
+
+.examples-search-glass input::placeholder {
+  color: var(--text-muted);
+}
+
+.examples-content {
+  margin: 0 auto;
+  padding: 0 10rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.filter-pill-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.filter-pill {
+  padding: 0.5rem 1.25rem;
+  border-radius: 624.9375rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.filter-pill:hover {
+  background: color-mix(in srgb, var(--pill-color, var(--border-color)) 15%, rgba(24, 24, 27, 0.4));
+  border-color: color-mix(in srgb, var(--pill-color, var(--border-color)) 40%, transparent);
+  color: var(--pill-color, var(--text-primary));
+  transform: translateY(-0.125rem);
+}
+
+.filter-pill.active {
+  background: color-mix(in srgb, var(--pill-color) 20%, transparent);
+  border-color: var(--pill-color);
+  color: var(--pill-color);
+  box-shadow: 0 4px 15px color-mix(in srgb, var(--pill-color) 30%, transparent);
+}
+
+.domain-sections-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.domain-section {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(0.625rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.domain-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.domain-marker {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  box-shadow: 0 0 10px currentColor;
+}
+
+.domain-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+.domain-header h2 span {
+  font-size: 1rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 64rem) {
+  .examples-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@keyframes ec-soft-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ============================================
+   Responsiveness
+   ============================================ */
+@media (max-width: 63.9rem) {
+  .examples-hero {
+    padding: 6rem 1.5rem 2.5rem;
+  }
+
+  .examples-title {
+    font-size: 2.25rem;
+  }
+
+  .examples-content {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 47.9rem) {
+  .examples-hero {
+    padding: 5rem 1.5rem 2rem;
+  }
+
+  .examples-title {
+    font-size: 2rem;
+  }
+
+  .examples-subtitle {
+    font-size: 0.9375rem;
+  }
+
+  .examples-content {
+    padding: 0 1rem;
+  }
+}

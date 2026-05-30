@@ -1,0 +1,229 @@
+.footer-section {
+  background-color: var(--bg-card);
+  padding: 3.75em 0 1.25em;
+  border-top: 1px solid var(--border-color);
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2.5em;
+  margin-bottom: 3.75em;
+}
+
+.footer-brand {
+  flex: 1;
+  min-width: 15.625rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  margin-bottom: 1em;
+}
+
+.logo-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.footer-tagline {
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+  max-width: 18.75rem;
+  line-height: 1.6;
+  margin-bottom: 0.75em;
+}
+
+.version-tag {
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 0.75em;
+  display: inline-block;
+  position: relative;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 17.5rem;
+  background: rgba(23, 23, 23, 0.95);
+  /* Darker, less transparent background */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: #ffffff;
+  text-align: center;
+  border-radius: 0.75rem;
+  padding: 0.875em;
+  position: absolute;
+  z-index: 100;
+  bottom: 160%;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.5;
+  pointer-events: none;
+  transform: translateY(0.625rem) scale(0.95);
+}
+
+
+.version-tag:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+
+/* Tooltip arrow */
+.tooltip-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 1.25rem;
+  margin-left: -0.3125em;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(23, 23, 23, 0.95) transparent transparent transparent;
+
+}
+
+
+.footer-links-group {
+  display: flex;
+  gap: 5em;
+  flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  text-align: right;
+}
+
+.footer-column h4 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5em;
+  font-weight: 600;
+}
+
+.footer-column a {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5em;
+}
+
+.footer-column a:hover {
+  color: var(--accent-color);
+}
+
+.api-status {
+  position: relative;
+}
+
+.status-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: #10b981;
+  /* Emerald-500 */
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+  animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 1.25em;
+  border-top: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+@media (max-width: 63.9rem) {
+  .footer-section {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .container {
+    margin: 0;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-tagline {
+    max-width: 100%;
+  }
+
+  .footer-links-group {
+    margin-left: 0;
+    gap: 1em;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .footer-column:nth-child(1) {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .footer-column:nth-child(1) a {
+    justify-content: flex-start;
+  }
+
+  .footer-column:nth-child(2) {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .footer-column:nth-child(2) a {
+    justify-content: flex-end;
+  }
+}

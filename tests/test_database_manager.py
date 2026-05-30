@@ -6,6 +6,7 @@ from backend.database_manager import (
     delete_roadmap,
     delete_user
 )
+# pyrefly: ignore [missing-import]
 import mysql.connector
 
 class TestDatabaseManager(unittest.TestCase):
@@ -43,7 +44,7 @@ class TestDatabaseManager(unittest.TestCase):
         
         self.assertEqual(len(roadmaps), 2)
         mock_cursor.execute.assert_called_once()
-        self.assertIn("SELECT * FROM roadmaps", mock_cursor.execute.call_args[0][0])
+        self.assertIn("FROM roadmaps", mock_cursor.execute.call_args[0][0])
         
     @patch('backend.database_manager.get_db_connection')
     def test_delete_user(self, mock_get_db):

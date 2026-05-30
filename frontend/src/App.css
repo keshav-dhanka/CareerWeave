@@ -1,0 +1,47 @@
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Luxury 3D / Glassmorphism Elements globally available */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-luxury);
+}
+
+.luxury-gradient {
+  background: radial-gradient(circle at 50% 0%, rgba(255, 107, 74, 0.15) 0%, rgba(5, 5, 5, 0) 70%);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Layout resets */
+section {
+  padding: 6.25rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 63.9rem) {
+  section {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 47.9rem) {
+  section {
+    padding: 2.5rem 0;
+  }
+}

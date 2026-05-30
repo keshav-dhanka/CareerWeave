@@ -1,0 +1,443 @@
+/* ═══════════════════════════════════════════════════════════════
+   DashboardPrompt — CareerWeave
+   Units: rem / em / % / clamp() / vw / vh / ch.
+   px ONLY for borders, shadows, and small decorative elements.
+   ═══════════════════════════════════════════════════════════════ */
+
+.dp-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 7rem;
+  position: relative;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+
+.dp-header {
+  width: 100%;
+  max-width: 50rem;
+  margin-bottom: 1.5rem;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dp-logo-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dp-logo-svg {
+  width: 2.25rem;
+  height: 2.25rem;
+  filter: drop-shadow(0 0 8px rgba(79, 70, 229, 0.4));
+}
+
+.dp-logo-path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: drawPath 1.5s ease-out forwards;
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.dp-greeting-text {
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  margin: 0;
+  opacity: 0;
+  animation: simpleWave 1ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.highlight-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.dp-user-name {
+  font-weight: 600;
+}
+
+.dp-greeting-cursor {
+  display: inline-block;
+  width: 0.125rem;
+  color: var(--accent-orange);
+  margin-left: 0.125em;
+  animation: blink 1s step-end infinite;
+}
+
+.dp-submessage-animated {
+  font-size: clamp(1.75rem, 6vw, 2.625rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.2;
+  opacity: 0;
+  animation: simpleWave 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  animation-delay: 1s;
+}
+
+@keyframes simpleWave {
+  0% {
+    opacity: 0;
+    transform: translateY(0.9375rem) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-0.3125rem) rotate(1deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+
+/* ── Prompt Box (Hero Style) ────────────────────────────────── */
+
+.dp-prompt-box {
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 10;
+  margin-bottom: 1.5rem;
+}
+
+.dp-prompt-box:hover,
+.dp-prompt-box.focused {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3), 0 0 30px rgba(79, 70, 229, 0.15);
+  transform: translateY(-0.125rem);
+}
+
+.dp-input-container {
+  position: relative;
+  min-height: 4rem;
+  margin-bottom: 1rem;
+}
+
+.dp-custom-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  font-size: 1.125rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.dp-placeholder-fixed {
+  color: var(--text-secondary);
+}
+
+.dp-placeholder-ghost {
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+}
+
+.dp-placeholder-typing {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.dp-prompt-cursor {
+  display: inline-block;
+  width: 0.1875rem;
+  animation: blink 1s step-end infinite;
+  color: var(--accent-orange);
+  margin-left: 0.125em;
+  text-shadow: 0 0 0.625rem var(--accent-orange);
+}
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.dp-prompt-textarea {
+  width: 100%;
+  min-height: 4rem;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.125rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  font-family: inherit;
+  overflow: hidden;
+  padding: 0;
+}
+
+.dp-prompt-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dp-hint-text {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+
+
+/* ── Trust Boosters ─────────────────────────────────────────── */
+
+.dp-trust-boosters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: -1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.dp-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+}
+
+.dp-trust-icon {
+  color: var(--accent-color);
+  opacity: 0.7;
+}
+
+.dp-trust-item:hover {
+  color: var(--text-secondary);
+}
+
+.dp-trust-dot {
+  color: rgba(255, 255, 255, 0.15);
+  font-size: 0.75rem;
+}
+
+/* ── Suggestions ────────────────────────────────────────────── */
+
+.dp-suggestions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  /* Prevent parent overflow */
+}
+
+.dp-suggestions-heading {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+}
+
+.dp-suggestion-chips {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5rem 0;
+  overflow-x: visible;
+  /* Allow scrolling if too wide */
+  scrollbar-width: none;
+  /* Hide scrollbar Firefox */
+  -ms-overflow-style: none;
+  /* Hide scrollbar IE/Edge */
+}
+
+.dp-suggestion-chips::-webkit-scrollbar {
+  display: none;
+  /* Hide scrollbar Chrome/Safari */
+}
+
+.dp-suggestion-chip {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  padding: 1em 1.5em;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.dp-suggestion-chip:hover {
+  background: rgba(79, 70, 229, 0.1);
+  border-color: rgba(79, 70, 229, 0.5);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.2);
+  transform: translateY(-0.125rem);
+  color: var(--text-primary);
+}
+
+.dp-chip-icon {
+  color: var(--accent-orange);
+}
+
+/* ── Soft Hero Skeleton ──────────────────────────────────────── */
+
+.dp-hero-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.dp-hero-skeleton__logo {
+  width: 2.25rem;
+  height: 2.25rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 0.5rem;
+  position: relative;
+}
+
+.dp-hero-skeleton__row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  /* Matches dp-logo-wrap gap */
+}
+
+.dp-hero-skeleton__line {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.375rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.dp-hero-skeleton__line.sm {
+  height: 1.5rem;
+  width: 10rem;
+}
+
+.dp-hero-skeleton__line.lg {
+  height: 2.8rem;
+  width: min(24rem, 80%);
+}
+
+/* Very subtle shimmering effect */
+.dp-hero-skeleton__logo::after,
+.dp-hero-skeleton__line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.03),
+      transparent);
+  animation: dp-soft-shimmer 2.5s infinite linear;
+}
+
+@keyframes dp-soft-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+
+@media (max-width: 63.9rem) {
+  .dp-suggestion-chips {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .dp-header {
+    text-align: left;
+    align-items: left;
+  }
+
+  .dp-logo-wrap {
+    align-items: center;
+  }
+}
+
+@media (max-width: 47.9rem) {
+  .dp-container {
+    padding: 2rem 1rem;
+  }
+
+  .dp-header {
+    text-align: left;
+    align-items: left;
+  }
+
+  .dp-logo-wrap {
+    align-items: center;
+  }
+
+  .dp-prompt-footer {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .btn-text {
+    display: none;
+  }
+
+  .btn-master-cta {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-radius: 1.25rem;
+    align-self: flex-end;
+  }
+
+  .dp-hint-text {
+    text-align: left;
+    margin: auto 0;
+  }
+}

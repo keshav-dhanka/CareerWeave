@@ -1,0 +1,269 @@
+/* ═══════════════════════════════════════════════════════════════
+   ExampleCards — CareerWeave Dashboard & Example Roadmaps
+   Units: rem / % / clamp(). px only for borders & shadows.
+   ═══════════════════════════════════════════════════════════════ */
+
+.bp-container {
+  width: 100%;
+}
+
+.bp-header {
+  margin-bottom: 1.25rem;
+}
+
+.bp-section-title {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.bp-section-sub {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.bp-view-all {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-decoration: underline;
+  color: var(--accent-color);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s, gap 0.2s;
+  white-space: nowrap;
+}
+
+.bp-view-all:hover {
+  color: #818cf8;
+  gap: 0.5rem;
+}
+
+/* ── Grid ────────────────────────────────────────────────────── */
+
+.examples-grid-dashboard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 48rem) {
+  .examples-grid-dashboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 75rem) {
+  .examples-grid-dashboard {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Example Card Glass ──────────────────────────────────────── */
+
+.example-card-glass,
+.example-card-glass-dashboard {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.example-card-glass-dashboard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.03) 100%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-clip: padding-box;
+  box-shadow: var(--shadow-luxury);
+  border-radius: 1.25rem;
+}
+
+.example-card-glass:hover,
+.example-card-glass-dashboard:hover {
+  transform: translateY(-0.25rem);
+  border-color: rgba(79, 70, 229, 0.5);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4), 0 0 20px rgba(79, 70, 229, 0.2);
+}
+
+.ec-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ec-domain-pill {
+  background: rgba(24, 24, 27, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.3rem 0.8rem;
+  border-radius: 624.9375rem;
+}
+
+.ec-duration {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.ec-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.ec-target-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+.ec-level-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  width: fit-content;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.ec-diff--beginner {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+  border-color: rgba(74, 222, 128, 0.3);
+}
+
+.ec-diff--intermediate {
+  background: rgba(250, 204, 21, 0.15);
+  color: #facc15;
+  border-color: rgba(250, 204, 21, 0.3);
+}
+
+.ec-diff--advanced {
+  background: rgba(248, 113, 113, 0.15);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.3);
+}
+
+.ec-context-indicator {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: capitalize;
+}
+
+.ec-gap-summary {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  flex-grow: 1;
+}
+
+.ec-gap-summary strong {
+  color: var(--text-secondary);
+}
+
+/* ── Example Card Skeleton ────────────────────────────────────── */
+
+.ec-skeleton,
+.ec-skeleton-dashboard {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.ec-skeleton-dashboard {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.03) 100%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-clip: padding-box;
+  box-shadow: var(--shadow-luxury);
+  border-radius: 1.25rem;
+}
+
+.ec-skeleton__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ec-skeleton__line {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0.375rem;
+  position: relative;
+  overflow: hidden;
+  height: 1.5rem;
+}
+
+.ec-skeleton__line.pill {
+  width: 4rem;
+  border-radius: 624.9375rem;
+}
+
+.ec-skeleton__line.duration {
+  width: 5rem;
+}
+
+.ec-skeleton__line.title {
+  height: 2rem;
+  width: 80%;
+}
+
+.ec-skeleton__line.badge {
+  width: 6rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+}
+
+.ec-skeleton__line.text {
+  height: 1rem;
+  width: 60%;
+}
+
+.ec-skeleton__line.box {
+  height: 4rem;
+  width: 100%;
+  border-radius: 0.5rem;
+}
+
+.ec-skeleton__line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.03),
+      transparent);
+  animation: ec-soft-shimmer 2.5s infinite linear;
+}
+
+@keyframes ec-soft-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}

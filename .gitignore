@@ -8,13 +8,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Local Experimental testing
+# Local Experimental testing, extra files
 playground/
-
-# Sensitive files & Logs
-gemini-models.txt
-*.log
-secret_key.txt
 
 # Database files
 *.sql
@@ -26,5 +21,5 @@ secret_key.txt
 .idea/
 .DS_Store
 
-# EXCEPTIONS: Allow the database blueprint
+# EXCEPTIONS
 !database/schema.sql

@@ -27,14 +27,16 @@ CREATE TABLE IF NOT EXISTS roadmaps (
     target_name VARCHAR(100),
     target_degree VARCHAR(150),
     career_goal VARCHAR(255) NOT NULL,
+    domain VARCHAR(100),
     current_skill_level VARCHAR(100),
     skill_gap_summary TEXT,
     total_weeks INT DEFAULT 0,
     is_feasible BOOLEAN DEFAULT 1,
+    is_example BOOLEAN DEFAULT 0,
+    is_pinned BOOLEAN DEFAULT 0,
     feasibility_reasoning TEXT,
     created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
     last_accessed_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active BOOLEAN DEFAULT 1,
     CONSTRAINT fk_user FOREIGN KEY (user_id) 
     REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
